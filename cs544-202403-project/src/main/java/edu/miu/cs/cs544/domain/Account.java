@@ -27,20 +27,17 @@ public class Account implements Serializable {
     
     private BigDecimal balance;
 
+    //One-Many accounts can have One-Many members
     @ManyToMany(mappedBy = "accounts")
-    private Set<Role> roles;
-
-    @ManyToOne
-    private Member member;
+    private Set<Member> members;
 
     public Account() {}
 
-    public Account(String description, String name, AccountType accountType, BigDecimal balance, Set<Role> roles, Member member) {
+    public Account(String description, String name, AccountType accountType, BigDecimal balance, Set<Member> members) {
         this.description = description;
         this.name = name;
         this.accountType = accountType;
         this.balance = balance;
-        this.roles = roles;
-        this.member = member;
+        this.members = members;
     }
 }
