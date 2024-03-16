@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +22,7 @@ public class Account implements Serializable {
     private String description;
     private String name; 
     
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private AccountType accountType;
     
     private BigDecimal balance;

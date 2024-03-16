@@ -3,6 +3,8 @@ package edu.miu.cs.cs544.domain;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +19,7 @@ public class Location implements Serializable {
     private String name;
     private String description;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private LocationType locationType;
 
     public Location() {}
