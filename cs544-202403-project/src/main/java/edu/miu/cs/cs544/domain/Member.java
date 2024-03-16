@@ -2,24 +2,31 @@ package edu.miu.cs.cs544.domain;
 
 import java.io.Serializable;
 import java.util.Set;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import lombok.Data;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Member implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String firstName;
-    private String lastName;
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MemberID")
+	private Integer memberId;
+	
+	@Column(name = "FirstName")
+	private String firstName;
+
+	@Column(name = "LastName")
+	private String lastName;
+
+	@Column(name = "Barcode")
+	private String barcode;
+
+    @Column(name = "Email")
     private String email;
-    private String barcode;
+
+	/*One member can have multiple roles*/
 
     @ManyToMany
     private Set<Role> roles;

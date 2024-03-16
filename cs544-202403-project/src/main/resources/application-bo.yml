@@ -1,0 +1,8 @@
+spring:
+  activemq:
+    user: artemis
+    password: artemis
+  datasource:
+    url: jdbc:mysql://localhost:3306/attendance_sys?useSSL=false&serverTimezone=UTC
+    username: root
+    password: password
