@@ -1,26 +1,10 @@
-common:
-  security:
-    enabled: false
-  feign-oauth:
-    enabled: false
-  mvc:
-    enabled: false
-server:
-  ssl:
-    enabled: false
-  servlet:
-    context-path: /badge-system
 spring:
-  security:
-    user:
-      name: user
-      password: 123
   application:
     name: cs544-202403-project
   datasource:
-    url: jdbc:mysql://localhost:3306/cs544?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/EA Project?useSSL=false&serverTimezone=UTC
     username: root
-    password: pass
+    password: Samimic15$
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10
@@ -32,10 +16,30 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      dialect: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        
+  security:
+    user:
+      name: user
+      password: 123
+
+server:
+  port: 8089
+  ssl:
+    enabled: false
+  servlet:
+    context-path: /badge-system
+
+common:
+  security:
+    enabled: false
+  feign-oauth:
+    enabled: false
+  mvc:
+    enabled: false
+
 logging:
   level:
     root: INFO
