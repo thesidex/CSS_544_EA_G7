@@ -1,8 +1,8 @@
 spring:
-#  security:
-#    user:
-#      name: user
-#      password: 123
+  security:
+    user:
+      name: user
+      password: 123
   activemq:
     user: artemis
     password: artemis
@@ -11,8 +11,7 @@ spring:
     username: root
     password: password
   jpa:
-
-    show-sql: true
+    show-sqlx: true
     hibernate:
       ddl-auto: create-drop
       naming:
