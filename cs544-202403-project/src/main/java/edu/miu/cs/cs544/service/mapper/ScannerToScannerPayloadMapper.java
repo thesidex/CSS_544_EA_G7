@@ -1,6 +1,7 @@
 package edu.miu.cs.cs544.service.mapper;
 
 import org.springframework.stereotype.Component;
+
 import edu.miu.common.service.mapper.BaseMapper;
 import edu.miu.cs.cs544.domain.Scanner;
 import edu.miu.cs.cs544.service.contract.ScannerPayload;
