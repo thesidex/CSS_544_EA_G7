@@ -1,4 +1,3 @@
 /.vscode
 .idea
-.env
-cs544-202403-project/src/main/resources/
+**/src/main/resources/.env
