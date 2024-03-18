@@ -2,14 +2,12 @@ package edu.miu.cs.cs544.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -24,8 +22,9 @@ public class Event implements Serializable {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
 
-    @OneToOne
-    private Schedule schedule;
+    @OneToMany(mappedBy = "event")
+    @JsonIgnore
+    private List<Schedule> schedules;
 
     @OneToOne
     private Scanner scanner;
@@ -35,13 +34,24 @@ public class Event implements Serializable {
 
     public Event() {}
 
-    public Event(String name, String description, LocalDateTime startDateTime, LocalDateTime endDateTime, Schedule schedule, Scanner scanner, Set<Member> members) {
+    public Event(String name, String description, LocalDateTime startDateTime, LocalDateTime endDateTime, List<Schedule> schedules, Scanner scanner, Set<Member> members) {
         this.name = name;
         this.description = description;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.schedule = schedule;
+        this.schedules = schedules;
         this.scanner = scanner;
         this.members = members;
     }
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", "", "")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .add("description='" + description + "'")
+                .add("startDateTime=" + startDateTime)
+                .add("endDateTime=" + endDateTime)
+                .toString();
+    }
+
 }
