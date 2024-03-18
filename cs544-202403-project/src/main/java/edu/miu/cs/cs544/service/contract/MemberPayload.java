@@ -26,8 +26,8 @@ public class MemberPayload implements Serializable {
 
 	private List<Role> roles;
 
-	private List<Account> accounts;
-
-	private Set<Event> events;
+//	private List<Account> accounts;
+//
+//	private Set<Event> events;
 
 }

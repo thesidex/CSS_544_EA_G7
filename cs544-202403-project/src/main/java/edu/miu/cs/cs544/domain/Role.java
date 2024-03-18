@@ -17,18 +17,13 @@ public class Role implements Serializable {
     @Column(name = "role_Name")
     private String roleName;
 
-    //One-Many roles can have One-Many members
-    @ManyToMany(mappedBy = "roles")
-    private Set<Member> members;
-
     @ManyToMany
     private Set<Account> accounts;
 
     public Role() {}
 
-    public Role(String roleName, Set<Member> members, Set<Account> accounts) {
+    public Role(String roleName, Set<Account> accounts) {
         this.roleName = roleName;
-        this.members = members;
         this.accounts = accounts;
     }
 
