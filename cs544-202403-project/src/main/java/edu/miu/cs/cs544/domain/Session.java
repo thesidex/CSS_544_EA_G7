@@ -9,18 +9,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
+import lombok.Setter;
 
 @Entity
-@Data
 public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     private Schedule schedule;
 
+    @Setter
     private LocalDate date;
 
     public Session() {}
@@ -29,4 +30,24 @@ public class Session implements Serializable {
         this.schedule = schedule;
         this.date = date;
     }
+    @Override
+    public String toString() {
+        return "Session{" +
+                "id=" + id +
+                ","  +
+                ", date=" + date +
+                '}';
+    }
+    public Long getId() {
+        return id;
+    }
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+
 }

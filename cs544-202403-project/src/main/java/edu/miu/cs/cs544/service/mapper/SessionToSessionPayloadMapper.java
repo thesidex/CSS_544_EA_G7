@@ -11,4 +11,14 @@ public class SessionToSessionPayloadMapper  extends BaseMapper<Session, SessionP
     public SessionToSessionPayloadMapper(MapperFactory mapperFactory) {
         super(mapperFactory, Session.class, SessionPayload.class);
     }
+
+    public SessionPayload customMapping(Session source) {
+        SessionPayload target = new SessionPayload();
+        target.setId(source.getId());
+        target.setDate(source.getDate());
+        if (source.getSchedule() != null) {
+            target.setScheduleId(source.getId());
+        }
+        return target;
+    }
 }

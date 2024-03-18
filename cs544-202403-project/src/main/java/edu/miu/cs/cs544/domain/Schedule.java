@@ -1,15 +1,12 @@
 package edu.miu.cs.cs544.domain;
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -21,18 +18,22 @@ public class Schedule implements Serializable {
 
     private LocalTime startTime;
     private LocalTime endTime;
-    private String weekDays;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private Set<DayOfWeek> weekDays;
     private String scheduleName;
 
     @OneToMany(mappedBy = "schedule")
     private Set<Session> sessions;
 
-    @OneToOne(mappedBy = "schedule")
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn
+  @JsonIgnore
     private Event event;
 
     public Schedule() {}
 
-    public Schedule(LocalTime startTime, LocalTime endTime, String weekDays, String scheduleName, Set<Session> sessions, Event event) {
+    public Schedule(LocalTime startTime, LocalTime endTime, Set<DayOfWeek> weekDays, String scheduleName, Set<Session> sessions, Event event) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.weekDays = weekDays;
@@ -40,4 +41,18 @@ public class Schedule implements Serializable {
         this.sessions = sessions;
         this.event = event;
     }
+
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", weekDays='" + weekDays + '\'' +
+                ", scheduleName='" + scheduleName + '\'' +
+                '}';
+    }
+
+
 }
