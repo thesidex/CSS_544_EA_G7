@@ -10,13 +10,16 @@ cd common-base-module
 mvn install
 ```
 
-2) Change mysql credentials located in `cs544-202403-project/src/main/resources/application.yml`.
-
+2) Copy `.env.sample` to a new file called `.env` and change credentials if required.
+```
+cp cs544-202403-project/src/main/resources/.env.sample cs544-202403-project/src/main/resources/.env
+```
 
 3) Install mvn dependencies for `cs544-202403-project`.
 ```
 cd cs544-202403-project
-mvn install
+MAVEN_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED" mvn install -e
 ```
+
 
 
