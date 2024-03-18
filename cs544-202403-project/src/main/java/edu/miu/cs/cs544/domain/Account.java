@@ -33,9 +33,11 @@ public class Account implements Serializable {
     @ManyToMany(mappedBy = "accounts")
     private Set<Member> members;
 
+    @ManyToOne
+    private Scanner scanner;
     public Account() {}
 
-    public Account(String description, String name, AccountType accountType, BigDecimal balance, Set<Member> members) {
+    public Account(String description, String name, AccountType accountType, BigDecimal balance, Set<Account> Accounts) {
         this.description = description;
         this.name = name;
         this.accountType = accountType;
