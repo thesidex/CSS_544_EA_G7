@@ -1,3 +1,4 @@
 /.vscode
 .idea
-cs544-202403-project/src/main/resources/application.yml
+.env
+cs544-202403-project/src/main/resources/
