@@ -24,6 +24,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set up environment variables
+        run: |
+          cp cs544-202403-project/.env.sample cs544-202403-project/.env
+
       - name: Set up JDK 21
         uses: actions/setup-java@v2
         with:
