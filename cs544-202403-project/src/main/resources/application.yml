@@ -18,9 +18,9 @@ spring:
   application:
     name: cs544-202403-project
   datasource:
-    url: jdbc:mysql://localhost:3306/cs544-examples?useSSL=false&serverTimezone=UTC
-    username: sarthak
-    password: 123456
+    url: jdbc:mysql://localhost:3306/cs544?useSSL=false&serverTimezone=UTC
+    username: root
+    password: pass
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10
