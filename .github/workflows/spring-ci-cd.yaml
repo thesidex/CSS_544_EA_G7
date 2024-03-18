@@ -1,0 +1,45 @@
+name: Spring Boot CI/CD Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: pass
+          MYSQL_DATABASE: cs544
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping -h localhost" --health-interval=10s --health-timeout=5s --health-retries=5
+
+      activemq:
+        image: symptoma/activemq:latest
+        ports:
+          - 61616:61616
+          - 8161:8161
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up environment variables
+        run: |
+          cp cs544-202403-project/src/main/resources/.env.sample cs544-202403-project/src/main/resources/.env
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'adopt'
+
+      - name: Install common-base-module dependencies
+        run: |
+          cd common-base-module
+          mvn install
+
+      - name: Build and test with Maven
+        run: |
+          cd cs544-202403-project
+          MAVEN_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED" mvn install
