@@ -71,7 +71,7 @@
 
         - name: Copy jar
           run: |
-            cd cs544-202403-project && cp /target/*.jar .
+            cd cs544-202403-project && cp target/*.jar .
 
         - name: List build artifacts
           if: github.event_name == 'push'
