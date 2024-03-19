@@ -21,3 +21,41 @@ INSERT INTO Role (role_Name)
 VALUES ('Faculty');
 
 SELECT * FROM Role;
+
+/*-------*/
+
+INSERT INTO Event (endDateTime, id, startDateTime, description, name)
+VALUES ('2023/02/01', 1, '2023/02/01', 'Description', 'Library');
+
+INSERT INTO Event (endDateTime, id, startDateTime, description, name)
+VALUES ('2023/02/10', 2, '2023/02/10', 'Concert Taylor', 'Music Concert');
+
+INSERT INTO Event (endDateTime, id, startDateTime, description, name)
+VALUES ('2023/02/23', 3, '2023/02/23', 'Description', 'Fire Event');
+
+SELECT * FROM Event;
+
+/*-------*/
+
+INSERT INTO Location (description, name, locationType)
+VALUES ('Location Des', 'Gym', 'GYM');
+
+SELECT * FROM Location;
+
+/*-------*/
+INSERT INTO Scanner (event_id, location_id)
+VALUES ('1', '1');
+
+SELECT * FROM Scanner;
+
+/*-------*/
+INSERT INTO Schedule(endTime, scheduleName, startTime, event_id)
+VALUES  ('14:30:20', 'Taylor Swift', '14:00:20', 1);
+
+SELECT * FROM Schedule;
+
+/*-------*/
+INSERT INTO Session(date, schedule_id)
+VALUES  ('2023/02/01', 1);
+
+SELECT * FROM Session;
