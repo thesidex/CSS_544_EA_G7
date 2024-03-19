@@ -44,30 +44,28 @@
             cd cs544-202403-project
             mvn clean package
 
-    deploy:
-      needs: build-and-test
-      runs-on: ubuntu-latest
-      environment: deploy
-      if: github.event_name == 'push'
-      steps:
-        - uses: actions/checkout@v2
-
         - name: Heroku Container Registry Login
+          if: github.event_name == 'push'
           run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
         - name: List build artifacts
+          if: github.event_name == 'push'
           run: ls -l
 
         - name: Build Docker Image
+          if: github.event_name == 'push'
           run: docker build -t my-app -f cs544-202403-project/Dockerfile ./cs544-202403-project
 
         - name: Tag Image
+          if: github.event_name == 'push'
           run: docker tag my-app registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
 
         - name: Push to Heroku
+          if: github.event_name == 'push'
           run: docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
 
         - name: Release Image on Heroku
+          if: github.event_name == 'push'
           run: heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
           env:
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
