@@ -42,6 +42,21 @@ jobs:
       - name: Build and test with Maven
         run: |
           cd cs544-202403-project
-          mvn install
-        env:
-          MAVEN_OPTS: --add-opens java.base/java.lang=ALL-UNNAMED
+          mvn clean package
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Heroku Deploy
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: adhikari.sarthak@gmail.com
+          usedocker: true
+
