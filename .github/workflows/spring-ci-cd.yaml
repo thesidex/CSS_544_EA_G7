@@ -25,16 +25,6 @@
       steps:
         - uses: actions/checkout@v2
 
-        - name: Cache Maven dependencies
-          uses: actions/cache@v2
-          with:
-            path: |
-              ~/.m2/repository
-              !~/.m2/repository/org/example
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: |
-              ${{ runner.os }}-m2-
-
         - name: Set up environment variables
           run: |
             cp cs544-202403-project/src/main/resources/.env.sample cs544-202403-project/src/main/resources/.env
@@ -44,6 +34,16 @@
           with:
             java-version: '21'
             distribution: 'adopt'
+
+        - name: Cache Maven dependencies
+          uses: actions/cache@v2
+          with:
+            path: |
+              ~/.m2/repository
+              !~/.m2/repository/org/example
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: |
+              ${{ runner.os }}-m2-
 
         - name: Install common-base-module dependencies
           run: |
