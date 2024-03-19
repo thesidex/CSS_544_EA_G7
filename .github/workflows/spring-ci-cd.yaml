@@ -49,9 +49,12 @@
           if: github.event_name == 'push'
           run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
+        - name: Install tree
+          run: sudo apt-get update && sudo apt-get install tree
+
         - name: List build artifacts
           if: github.event_name == 'push'
-          run: ls -l
+          run: tree cs544-202403-project
 
         - name: Build Docker Image
           if: github.event_name == 'push'
