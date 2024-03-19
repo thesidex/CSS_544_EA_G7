@@ -1,5 +1,7 @@
 package edu.miu.cs.cs544.service.mapper;
 
+import edu.miu.cs.cs544.domain.Account;
+import edu.miu.cs.cs544.service.contract.AccountPayload;
 import org.springframework.stereotype.Component;
 
 import edu.miu.common.service.mapper.BaseMapper;
@@ -14,3 +16,4 @@ public class MemberPayloadToMemberMapper extends BaseMapper<MemberPayload, Membe
 		super(mapperFactory, MemberPayload.class, Member.class);
 	}
 }
+
