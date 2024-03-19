@@ -14,7 +14,7 @@ public class Record implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "scan_time")
     private LocalDateTime scanTime;
@@ -27,7 +27,7 @@ public class Record implements Serializable {
     @JoinColumn(name = "scanner_id")
     private Scanner scanner;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "session_id")
     private Session session;
 
