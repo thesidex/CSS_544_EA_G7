@@ -80,7 +80,7 @@
 
         - name: Build Docker Image
           if: github.event_name == 'push'
-          run: docker build -f Dockerfile .
+          run: cd  cs544-202403-project && docker build -f Dockerfile .
 
         - name: Tag Image
           if: github.event_name == 'push'
