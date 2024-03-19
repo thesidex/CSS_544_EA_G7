@@ -75,7 +75,7 @@
 
         - name: Build Docker Image
           if: github.event_name == 'push'
-          run: docker build -t my-app -f cs544-202403-project/Dockerfile ./cs544-202403-project
+          run: mkdir cs544-202403-project && docker build -f Dockerfile  cs544-202403-project
 
         - name: Tag Image
           if: github.event_name == 'push'
