@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/events")
-public class EventSpecificSessionController extends BaseReadWriteController<SessionPayload, Session, Long> {
+public class EventController extends BaseReadWriteController<SessionPayload, Session, Long> {
     @Autowired
     private SessionService sessionService;
 
