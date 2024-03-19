@@ -1,0 +1,39 @@
+
+server:
+  port: 8081
+common:
+  feign-oauth:
+    enabled: false
+  security:
+    enabled: false
+spring:
+  security:
+    user:
+      name: user
+      password: 123
+  application:
+    name: cs544-202403-project
+  datasource:
+    url: jdbc:mysql://localhost:3306/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximumPoolSize: 10
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      generate-ddl: true
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: /CS544/Logging/${spring.application.name}/logs
