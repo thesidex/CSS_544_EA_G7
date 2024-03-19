@@ -65,6 +65,7 @@
         - name: Copy jar
           run: |
             cp cs544-202403-project/target/*.jar .
+            ls -ltra
 
         - name: Heroku Container Registry Login
           if: github.event_name == 'push'
