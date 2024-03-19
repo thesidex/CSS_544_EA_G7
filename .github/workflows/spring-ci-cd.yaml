@@ -4,6 +4,7 @@
 
   jobs:
     build-and-test:
+      environment: deploy
       runs-on: ubuntu-latest
 
       services:
