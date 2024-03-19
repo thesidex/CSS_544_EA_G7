@@ -5,5 +5,5 @@ import edu.miu.cs.cs544.domain.Member;
 import edu.miu.cs.cs544.service.contract.MemberPayload;
 
 public interface MemberService extends BaseReadWriteService <MemberPayload, Member, Long>{
-
+    void takeAttendance(Long scannerId, String memberBarcode, Long sessionId);
 }

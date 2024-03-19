@@ -19,14 +19,18 @@ public class Record implements Serializable {
     @Column(name = "scan_time")
     private LocalDateTime scanTime;
 
-//    @OneToMany
-//    @JoinColumn(name = "member_id")
-//    private Set<Member> members;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "scanner_id")
     private Scanner scanner;
-    
+
+    @OneToOne
+    @JoinColumn(name = "session_id")
+    private Session session;
+
     public Record() {
     }
 
@@ -34,9 +38,10 @@ public class Record implements Serializable {
         return id;
     }
 
-    public Record(LocalDateTime scanTime, Scanner scanner) {
-        this.scanTime = scanTime;
-//        this.members = members;
+    public Record(Member member, Scanner scanner, Session session) {
+        this.scanTime = LocalDateTime.now();
+        this.member = member;
         this.scanner = scanner;
+        this.session = session;
     }
 }
