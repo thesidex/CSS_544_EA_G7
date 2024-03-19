@@ -1,15 +1,10 @@
+server:
+  port: 8081
 common:
-  security:
-    enabled: false
   feign-oauth:
     enabled: false
-  mvc:
+  security:
     enabled: false
-server:
-  ssl:
-    enabled: false
-  servlet:
-    context-path: /badge-system
 spring:
   security:
     user:
@@ -35,7 +30,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        
+
 logging:
   level:
     root: INFO
