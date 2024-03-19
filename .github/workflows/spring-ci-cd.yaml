@@ -62,6 +62,10 @@
             echo "Verifying JAR file presence"
             ls -l cs544-202403-project/target/*.jar
 
+        - name: Copy jar
+          run: |
+            cp cs544-202403-project/target/*.jar .
+
         - name: Heroku Container Registry Login
           if: github.event_name == 'push'
           run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
@@ -75,7 +79,7 @@
 
         - name: Build Docker Image
           if: github.event_name == 'push'
-          run: docker build -f Dockerfile  cs544-202403-project
+          run: docker build -f Dockerfile .
 
         - name: Tag Image
           if: github.event_name == 'push'
