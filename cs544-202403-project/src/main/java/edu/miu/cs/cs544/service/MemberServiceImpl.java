@@ -7,6 +7,6 @@ import edu.miu.cs.cs544.domain.Member;
 import edu.miu.cs.cs544.service.contract.MemberPayload;
 
 @Service
-public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, Member, Integer> implements MemberService {
+public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, Member, Long> implements MemberService {
 	
 }

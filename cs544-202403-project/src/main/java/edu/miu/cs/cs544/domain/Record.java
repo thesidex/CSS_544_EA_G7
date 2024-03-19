@@ -2,14 +2,10 @@ package edu.miu.cs.cs544.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -18,13 +14,14 @@ public class Record implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Column(name = "scan_time")
     private LocalDateTime scanTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+//    @OneToMany
+//    @JoinColumn(name = "member_id")
+//    private Set<Member> members;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "scanner_id")
@@ -33,9 +30,13 @@ public class Record implements Serializable {
     public Record() {
     }
 
-    public Record(LocalDateTime scanTime, Member member, Scanner scanner) {
+    public Long getId() {
+        return id;
+    }
+
+    public Record(LocalDateTime scanTime, Scanner scanner) {
         this.scanTime = scanTime;
-        this.member = member;
+//        this.members = members;
         this.scanner = scanner;
     }
 }
