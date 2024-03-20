@@ -12,7 +12,7 @@ public class Scanner implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Location location;
 
     @OneToOne
