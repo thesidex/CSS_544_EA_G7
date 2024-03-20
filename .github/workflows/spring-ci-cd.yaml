@@ -56,7 +56,7 @@
         - name: Install common-base-module dependencies
           run: |
             cd common-base-module
-            mvn install
+            mvn install 
 
         - name: Build and test with Maven
           run: |
