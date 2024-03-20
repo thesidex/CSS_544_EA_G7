@@ -3,12 +3,7 @@ package edu.miu.cs.cs544.domain;
 import java.io.Serializable;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -25,6 +20,12 @@ public class Scanner implements Serializable {
 
     @OneToMany(mappedBy = "scanner")
     private Set<Record> records;
+
+
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
+
 
     public Scanner() {}
 
