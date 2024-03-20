@@ -27,14 +27,15 @@
 
         - name: Setup enviornment variables
           run: |
-            echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" > cs544-202403-project/src/main/resources/.env
+            touch cs544-202403-project/src/main/resources/.env
+            echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> cs544-202403-project/src/main/resources/.env
             echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> cs544-202403-project/src/main/resources/.env
             echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> cs544-202403-project/src/main/resources/.env
             echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> cs544-202403-project/src/main/resources/.env
             echo "ACTIVEMQ_BROKER_URL=${{ secrets.ACTIVEMQ_BROKER_URL }}" >> cs544-202403-project/src/main/resources/.env
             echo "ACTIVEMQ_USERNAME=${{ secrets.ACTIVEMQ_USERNAME }}" >> cs544-202403-project/src/main/resources/.env
             echo "ACTIVEMQ_PASSWORD=${{ secrets.ACTIVEMQ_PASSWORD }}" >> cs544-202403-project/src/main/resources/.env
-          shell: /usr/bin/bash -e {0}
+            cat cs544-202403-project/src/main/resources/.env
 
         - name: Set up JDK 21
           uses: actions/setup-java@v2
