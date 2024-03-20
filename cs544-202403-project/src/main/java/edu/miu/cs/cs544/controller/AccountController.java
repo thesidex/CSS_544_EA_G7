@@ -15,5 +15,4 @@ import java.util.List;
 @RestController
 @RequestMapping("/accounts")
 public class AccountController extends BaseReadWriteController<AccountPayload, Account, Long> {
-
 }
