@@ -1,10 +1,15 @@
-server:
-  port: 8081
 common:
-  feign-oauth:
-    enabled: false
   security:
     enabled: false
+  feign-oauth:
+    enabled: false
+  mvc:
+    enabled: false
+server:
+  ssl:
+    enabled: false
+  servlet:
+    context-path: /badge-system
 spring:
   security:
     user:
