@@ -9,6 +9,6 @@ import edu.miu.cs.cs544.service.contract.MemberPayload;
 
 @RestController
 @RequestMapping("/members")
-public class MemberController extends BaseReadWriteController<MemberPayload, Member, Integer> {
+public class MemberController extends BaseReadWriteController<MemberPayload, Member, Long> {
 
 }
