@@ -28,6 +28,7 @@
         - name: Setup enviornment variables
           run: |
             touch cs544-202403-project/src/main/resources/.env
+            echo "DATABASE_HOST=${{ secrets.DATABASE_HOST }}" >> cs544-202403-project/src/main/resources/.env
             echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> cs544-202403-project/src/main/resources/.env
             echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> cs544-202403-project/src/main/resources/.env
             echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> cs544-202403-project/src/main/resources/.env
@@ -107,5 +108,3 @@
           env:
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
-        - name: Run tmate
-          uses: mxschmitt/action-tmate@v2
