@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import java.util.List;
 @Repository
-public interface MemberRepository extends BaseRepository<Member, Integer>{
+public interface MemberRepository extends BaseRepository<Member, Long>{
 
     @Query("SELECT DISTINCT m.email FROM Member m JOIN m.accounts a WHERE a.balance < (a.defaultBalance * 0.05)")
     List<String> findMemberEmailsByLowBalance();
