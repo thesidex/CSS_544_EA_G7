@@ -35,7 +35,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        
+  activemq:
+    broker-url: ${ACTIVEMQ_BROKER_URL}
+    # ActiveMQ broker URL
+    user: ${ACTIVEMQ_USERNAME} # Username for the broker
+    password: ${ACTIVEMQ_PASSWORD} # Password for the broker
 logging:
   level:
     root: INFO
