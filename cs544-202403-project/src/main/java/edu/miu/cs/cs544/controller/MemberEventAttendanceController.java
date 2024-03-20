@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.controller;
 
+import edu.miu.cs.cs544.domain.Record;
 import edu.miu.cs.cs544.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
