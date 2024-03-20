@@ -6,6 +6,7 @@ import edu.miu.cs.cs544.domain.Scanner;
 import edu.miu.cs.cs544.service.MemberService;
 import edu.miu.cs.cs544.service.RecordService;
 import edu.miu.cs.cs544.service.contract.RecordPayload;
+import edu.miu.cs.cs544.service.contract.RecordRequestPayload;
 import edu.miu.cs.cs544.service.contract.ScanPayload;
 import edu.miu.cs.cs544.service.contract.ScannerPayload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,22 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
         return new ResponseEntity<>(records, HttpStatus.OK);
     }
 
+    @PutMapping("/{scannerId}/records/{recordId}")
+    public ResponseEntity<?> deleteRecordById(@PathVariable Long scannerId, @PathVariable Long recordId, @RequestBody RecordRequestPayload recordRequestPayload) {
+        RecordPayload updateRecord = recordService.updateRecordByScannerId(scannerId, recordId, recordRequestPayload);
+        return new ResponseEntity<>(updateRecord, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{scannerId}/records/{recordId}")
+    public ResponseEntity<?> deleteRecordById(@PathVariable Long scannerId, @PathVariable Long recordId) {
+        recordService.deleteRecordByScannerId(scannerId, recordId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /*Scan barcode considers as TAKING ATTENDANCE*/
     @PostMapping("/{scannerId}/scan")
     public ResponseEntity<?> scanBarcode(@PathVariable Long scannerId, @RequestBody ScanPayload scanPayload) {
-        memberService.takeAttendance(scannerId, scanPayload.getMemberBarcode(), scanPayload.getSessionId());
+        memberService.takeAttendance(scannerId, scanPayload);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

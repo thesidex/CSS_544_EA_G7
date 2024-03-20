@@ -25,13 +25,13 @@ SELECT * FROM Role;
 /*-------*/
 
 INSERT INTO Event (endDateTime, id, startDateTime, description, name)
-VALUES ('2023/02/01', 1, '2023/02/01', 'Description', 'Library');
+VALUES ('2023-02-01', 1, '2023-02-01', 'Description', 'Library');
 
 INSERT INTO Event (endDateTime, id, startDateTime, description, name)
-VALUES ('2023/02/10', 2, '2023/02/10', 'Concert Taylor', 'Music Concert');
+VALUES ('2023-02-10', 2, '2023-02-10', 'Concert Taylor', 'Music Concert');
 
 INSERT INTO Event (endDateTime, id, startDateTime, description, name)
-VALUES ('2023/02/23', 3, '2023/02/23', 'Description', 'Fire Event');
+VALUES ('2023-02-23', 3, '2023-02-23', 'Description', 'Fire Event');
 
 SELECT * FROM Event;
 
@@ -40,11 +40,17 @@ SELECT * FROM Event;
 INSERT INTO Location (description, name, locationType)
 VALUES ('Location Des', 'Gym', 'GYM');
 
+INSERT INTO Location (description, name, locationType)
+VALUES ('Agiro Dinning Hall', 'Argiro', 'DINING');
+
 SELECT * FROM Location;
 
 /*-------*/
 INSERT INTO Scanner (event_id, location_id)
 VALUES ('1', '1');
+
+INSERT INTO Scanner (event_id, location_id)
+VALUES ('3', '1');
 
 SELECT * FROM Scanner;
 
@@ -56,6 +62,10 @@ SELECT * FROM Schedule;
 
 /*-------*/
 INSERT INTO Session(date, schedule_id)
-VALUES  ('2023/02/01', 1);
+VALUES  ('2023-02-01', 1);
 
 SELECT * FROM Session;
+
+SELECT * FROM Record;
+
+SELECT * FROM Registration;
