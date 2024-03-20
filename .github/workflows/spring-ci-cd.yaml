@@ -54,6 +54,11 @@
           run: |
             cd cs544-202403-project
             mvn clean package
+          env:
+            DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+            DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+            DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+            DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
         - name: Verify Maven build artifacts in cs544-202403-project
           run: |
