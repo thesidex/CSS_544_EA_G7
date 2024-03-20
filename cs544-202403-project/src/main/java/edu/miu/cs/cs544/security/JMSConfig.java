@@ -24,6 +24,29 @@ public class JMSConfig {
 
     @Value("${spring.mail.port}")
     private int port;
+    @Value("${spring.mail.username}")
+    private String username;
+
+    @Value("${spring.mail.password}")
+    private String password;
+
+    @Value("${spring.mail.properties.mail.smtp.auth}")
+    private boolean smtpAuth;
+
+    @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
+    private boolean starttlsEnabled;
+//
+//    @Value("${spring.mail.properties.mail.smtp.starttls.required}")
+//    private boolean starttlsRequired;
+
+//    @Value("${spring.mail.properties.mail.smtp.timeout}")
+//    private int timeout;
+
+//    @Value("${spring.mail.properties.mail.smtp.connectiontimeout}")
+//    private int connectionTimeout;
+
+//    @Value("${spring.mail.properties.mail.debug}")
+//    private boolean debug;
 
     @Bean
     public JmsListenerContainerFactory<?> jmsFactory(ConnectionFactory connectionFactory,
@@ -47,6 +70,16 @@ public class JMSConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(host);
         mailSender.setPort(port);
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
+
+        mailSender.getJavaMailProperties().setProperty("mail.smtp.auth", String.valueOf(smtpAuth));
+        mailSender.getJavaMailProperties().setProperty("mail.smtp.starttls.enable", String.valueOf(starttlsEnabled));
+//        mailSender.getJavaMailProperties().setProperty("mail.smtp.starttls.required", String.valueOf(starttlsRequired));
+//        mailSender.getJavaMailProperties().setProperty("mail.smtp.timeout", String.valueOf(timeout));
+//        mailSender.getJavaMailProperties().setProperty("mail.smtp.connection timeout", String.valueOf(connectionTimeout));
+//        mailSender.getJavaMailProperties().setProperty("mail.debug", String.valueOf(debug));
+
         return mailSender;
     }
 

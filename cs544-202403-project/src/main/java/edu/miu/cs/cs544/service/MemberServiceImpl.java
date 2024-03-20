@@ -1,4 +1,4 @@
-package edu.miu.cs.cs544.service;
+    package edu.miu.cs.cs544.service;
 
 import edu.miu.common.exception.ResourceNotFoundException;
 import edu.miu.cs.cs544.domain.Record;
@@ -43,6 +43,5 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
                 .orElseThrow(() -> new ResourceNotFoundException("Session not found with id: " + scanPayload.getSessionId()));
         Record record = new Record(member, scanner, session);
         recordMapper.map(recordRepository.save(record));
-
     }
 }

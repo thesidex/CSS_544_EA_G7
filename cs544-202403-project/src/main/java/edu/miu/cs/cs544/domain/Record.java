@@ -26,11 +26,8 @@ public class Record implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "scanner_id")
     private Scanner scanner;
-
-    @ManyToOne
-    @JoinColumn(name = "session_id")
-    private Session session;
-
+    private long session_id;
+    
     public Record() {
     }
 
@@ -42,6 +39,13 @@ public class Record implements Serializable {
         this.scanTime = LocalDateTime.now();
         this.member = member;
         this.scanner = scanner;
-        this.session = session;
+        //this.session = session;
+    }
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", scanTime=" + scanTime +
+                '}';
     }
 }

@@ -1,22 +1,38 @@
-server:
-  port: 8080
 common:
-  feign-oauth:
-    enabled: false
   security:
     enabled: false
+  feign-oauth:
+    enabled: false
+  mvc:
+    enabled: false
+server:
+  port: ${SERVER_PORT:8080}
+  ssl:
+    enabled: false
+  servlet:
+    context-path: /badge-system
 spring:
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 25
+    username: 9b19d563f107f6
+    password: b784a865dfed38
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    default-encoding: UTF-8
   security:
     user:
       name: user
       password: 123
-  activemq:
-    user: ${ACTIVEMQ_USERNAME}
-    password: ${ACTIVEMQ_PASSWORD}
   application:
     name: cs544-202403-project
   datasource:
-    url: jdbc:mysql://localhost:3306/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -33,7 +49,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-
+  activemq:
+    broker-url: ${ACTIVEMQ_BROKER_URL}
+    # ActiveMQ broker URL
+    user: ${ACTIVEMQ_USERNAME} # Username for the broker
+    password: ${ACTIVEMQ_PASSWORD} # Password for the broker
 logging:
   level:
     root: INFO
