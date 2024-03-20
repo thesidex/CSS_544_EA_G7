@@ -26,21 +26,17 @@ public class Event implements Serializable {
     @JsonIgnore
     private List<Schedule> schedules;
 
-    @OneToOne
-    private Scanner scanner;
-
     @ManyToMany(mappedBy = "events")
     private Set<Member> members;
 
     public Event() {}
 
-    public Event(String name, String description, LocalDateTime startDateTime, LocalDateTime endDateTime, List<Schedule> schedules, Scanner scanner, Set<Member> members) {
+    public Event(String name, String description, LocalDateTime startDateTime, LocalDateTime endDateTime, List<Schedule> schedules, Set<Member> members) {
         this.name = name;
         this.description = description;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.schedules = schedules;
-        this.scanner = scanner;
         this.members = members;
     }
     @Override

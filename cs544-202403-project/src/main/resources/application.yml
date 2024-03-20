@@ -16,6 +16,9 @@ spring:
     user:
       name: user
       password: 123
+  activemq:
+    user: ${ACTIVEMQ_USERNAME}
+    password: ${ACTIVEMQ_PASSWORD}
   application:
     name: cs544-202403-project
   datasource:

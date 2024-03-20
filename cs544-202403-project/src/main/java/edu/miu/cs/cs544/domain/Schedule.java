@@ -18,30 +18,28 @@ public class Schedule implements Serializable {
 
     private LocalTime startTime;
     private LocalTime endTime;
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
-    private Set<DayOfWeek> weekDays;
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    private Set<ScheduleDayOfWeek> scheduleDayOfWeeks;
     private String scheduleName;
 
     @OneToMany(mappedBy = "schedule")
     private Set<Session> sessions;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn
-  @JsonIgnore
+      @ManyToOne(fetch = FetchType.EAGER)
+      @JoinColumn
+      @JsonIgnore
     private Event event;
 
     public Schedule() {}
 
-    public Schedule(LocalTime startTime, LocalTime endTime, Set<DayOfWeek> weekDays, String scheduleName, Set<Session> sessions, Event event) {
+    public Schedule(LocalTime startTime, LocalTime endTime, Set<ScheduleDayOfWeek> scheduleDayOfWeeks, String scheduleName, Set<Session> sessions, Event event) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.weekDays = weekDays;
+        this.scheduleDayOfWeeks = scheduleDayOfWeeks;
         this.scheduleName = scheduleName;
         this.sessions = sessions;
         this.event = event;
     }
-
 
     @Override
     public String toString() {
@@ -49,10 +47,9 @@ public class Schedule implements Serializable {
                 "id=" + id +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", weekDays='" + weekDays + '\'' +
+                ", scheduleDayOfWeeks='" + scheduleDayOfWeeks + '\'' +
                 ", scheduleName='" + scheduleName + '\'' +
                 '}';
     }
-
 
 }
