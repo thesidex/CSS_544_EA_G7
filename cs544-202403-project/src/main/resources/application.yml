@@ -6,6 +6,7 @@ common:
   mvc:
     enabled: false
 server:
+  port: ${SERVER_PORT:8080}
   ssl:
     enabled: false
   servlet:
