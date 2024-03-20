@@ -75,6 +75,9 @@
             echo "Verifying JAR file presence"
             ls -l cs544-202403-project/target/*.jar
 
+        - name: Setup tmate session
+          uses: mxschmitt/action-tmate@v3
+
         - name: Heroku Container Registry Login
           if: github.event_name == 'push'
           run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
