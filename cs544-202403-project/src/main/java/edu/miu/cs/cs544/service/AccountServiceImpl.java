@@ -3,31 +3,19 @@ package edu.miu.cs.cs544.service;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
 import edu.miu.cs.cs544.domain.Account;
 import edu.miu.cs.cs544.domain.Attendance;
-import edu.miu.cs.cs544.repository.AccountRepository;
 import edu.miu.cs.cs544.repository.AttendanceRepository;
 import edu.miu.cs.cs544.service.contract.AccountPayload;
 import edu.miu.cs.cs544.service.contract.AttendancePayload;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AccountServiceImpl extends BaseReadWriteServiceImpl<AccountPayload, Account, Long>
-                implements AccountService {
-
-        @Autowired
-        AccountRepository accountRepository;
+public class AccountServiceImpl extends BaseReadWriteServiceImpl<AccountPayload, Account, Long> implements AccountService {
 
         @Autowired
         AttendanceRepository attendanceRepository;
-
-        @Override
-        public List<String> findAccountsByBalanceCondition() {
-                return accountRepository.findAccountsByBalanceCondition();
-        }
 
         public List<AttendancePayload> getAttendanceByAccountIdAndStartTimeAndEndTime(Long accountId, String startTime,
                         String endTime) {
