@@ -39,7 +39,7 @@ public class Record implements Serializable {
         this.scanTime = LocalDateTime.now();
         this.member = member;
         this.scanner = scanner;
-        this.session = session;
+        //this.session = session;
     }
     @Override
     public String toString() {
