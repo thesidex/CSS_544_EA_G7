@@ -42,4 +42,6 @@ jobs:
       - name: Build and test with Maven
         run: |
           cd cs544-202403-project
-          MAVEN_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED" mvn install
+          mvn install
+        env:
+          MAVEN_OPTS: --add-opens java.base/java.lang=ALL-UNNAMED

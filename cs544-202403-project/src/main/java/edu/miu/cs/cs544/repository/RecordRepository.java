@@ -14,4 +14,8 @@ public interface RecordRepository extends BaseRepository<Record, Long> {
     @Query("SELECT r FROM Record r WHERE r.member.id = :memberId")
     List<Record> getRecordFromMemberId(@Param("memberId") Long memberId);
 
+    @Query("SELECT r FROM Record r JOIN r.scanner s JOIN Event e WHERE e.id = :eventId AND r.member.id = :memberId")
+    List<Record> getMemberEventAttendance(@Param("memberId") Long memberId, @Param("eventId") Long eventId);
+    
+    List<Record> findByScannerId(Long scannerId);
 }
