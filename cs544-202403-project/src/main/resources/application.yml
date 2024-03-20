@@ -15,8 +15,8 @@ spring:
   mail:
     host: sandbox.smtp.mailtrap.io
     port: 25
-    username: 9b19d563f107f6
-    password: b784a865dfed38
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -54,6 +54,7 @@ spring:
     # ActiveMQ broker URL
     user: ${ACTIVEMQ_USERNAME} # Username for the broker
     password: ${ACTIVEMQ_PASSWORD} # Password for the broker
+
 logging:
   level:
     root: INFO
