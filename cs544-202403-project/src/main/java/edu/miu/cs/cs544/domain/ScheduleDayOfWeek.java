@@ -1,4 +1,5 @@
 package edu.miu.cs.cs544.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.DayOfWeek;
@@ -10,8 +11,9 @@ public class ScheduleDayOfWeek {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "schedule_id")
+    @JsonIgnore
     private Schedule schedule;
 
     @Enumerated(EnumType.STRING)
