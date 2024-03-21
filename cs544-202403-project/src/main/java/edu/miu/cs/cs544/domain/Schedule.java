@@ -18,11 +18,11 @@ public class Schedule implements Serializable {
 
     private LocalTime startTime;
     private LocalTime endTime;
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ScheduleDayOfWeek> scheduleDayOfWeeks;
     private String scheduleName;
 
-    @OneToMany(mappedBy = "schedule",  cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
     @JsonIgnore
     private Set<Session> sessions;
 
@@ -48,7 +48,6 @@ public class Schedule implements Serializable {
                 "id=" + id +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", scheduleDayOfWeeks='" + scheduleDayOfWeeks + '\'' +
                 ", scheduleName='" + scheduleName + '\'' +
                 '}';
     }
