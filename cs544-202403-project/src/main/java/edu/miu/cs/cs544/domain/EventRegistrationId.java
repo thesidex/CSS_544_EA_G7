@@ -21,7 +21,6 @@ public class EventRegistrationId implements Serializable {
         this.eventId = eventId;
     }
 
-    public EventRegistrationId() {
+    public EventRegistrationId() {}
 
-    }
 }
