@@ -13,4 +13,6 @@ public interface MemberRepository extends BaseRepository<Member, Long>{
     List<String> findMemberEmailsByLowBalance();
     Optional<Member> findByBarcode(String barcode);
 
+
+  //void deleteRoleForMember(Long memberId, Long roleId);
 }
