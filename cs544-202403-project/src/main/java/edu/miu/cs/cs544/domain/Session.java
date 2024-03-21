@@ -52,4 +52,6 @@ public class Session implements Serializable {
     }
 
 
+    public void setId(long l) {
+    }
 }

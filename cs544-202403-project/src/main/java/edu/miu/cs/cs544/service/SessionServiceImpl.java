@@ -36,6 +36,9 @@ public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload,
 
     public List<SessionPayload> getSessionsByEventId(Long eventId) {
         List<Session> sessions = sessionRepository.findByEventId(eventId);
+        if (sessions.isEmpty()) {
+            throw new ResourceNotFoundException("No event found for eventId: " + eventId);
+        }
         return sessions.stream()
                 .map(session -> sessionMapper.customMapping(session))
                 .collect(Collectors.toList());
