@@ -21,7 +21,7 @@ public class Account implements Serializable {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-    private BigDecimal balance;
+    private double balance;
 
     //One-Many accounts can have One-Many members
     @ManyToMany(mappedBy = "accounts")
@@ -31,11 +31,11 @@ public class Account implements Serializable {
 //    private Scanner scanner;
 //    public Account() {}
 
-    public Account(String description, String name, AccountType accountType, BigDecimal balance, Set<Account> Accounts) {
+    public Account(String description, String name, AccountType accountType, double balance, Set<Account> Accounts) {
         this.description = description;
         this.name = name;
         this.accountType = accountType;
-        this.balance = balance;
+        this.balance = 100;
         this.members = members;
     }
 
