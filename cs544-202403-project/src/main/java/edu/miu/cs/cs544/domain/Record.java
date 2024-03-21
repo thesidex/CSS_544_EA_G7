@@ -15,6 +15,8 @@ public class Record implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
+    @JoinColumn(name = "record_id")
     private Long id;
 
     @Column(name = "scan_time")
@@ -34,10 +36,6 @@ public class Record implements Serializable {
     private Session session;
     
     public Record() {
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Record(Member member, Scanner scanner, Session session ) {

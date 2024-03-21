@@ -25,6 +25,5 @@ public class MemberPayload implements Serializable {
 
 	private String email;
 
-	private Long roleId;
-
+	private List<Role> roles;
 }
