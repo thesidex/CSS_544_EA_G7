@@ -26,20 +26,28 @@ public class ScheduleSeviceImpl extends BaseReadWriteServiceImpl<SchedulePayload
     public Schedule createScheduleForEvent(Long eventId, SchedulePayload schedulePayload) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found with ID: " + eventId));
-        Set<ScheduleDayOfWeek> scheduleDayOfWeeks = new HashSet<>();
-        scheduleDayOfWeeks.addAll(schedulePayload.getScheduleDayOfWeeks());
+
         Schedule schedule = new Schedule();
         schedule.setStartTime(schedulePayload.getStartTime());
         schedule.setEndTime(schedulePayload.getEndTime());
         schedule.setScheduleName(schedulePayload.getScheduleName());
         schedule.setEvent(event);
+        Set<ScheduleDayOfWeek> scheduleDayOfWeeks = new HashSet<>();
+        scheduleDayOfWeeks.addAll(schedulePayload.getScheduleDayOfWeeks());
+//        Set<ScheduleDayOfWeek> scheduleDayOfWeeks = new HashSet<>();
+//        for (ScheduleDayOfWeek scheduleDayOfWeek : schedulePayload.getScheduleDayOfWeeks()) {
+//            scheduleDayOfWeek.setSchedule(schedule);
+//            scheduleDayOfWeeks.add(scheduleDayOfWeek);
+//        }
         schedule.setScheduleDayOfWeeks(scheduleDayOfWeeks);
         Set<Session> sessions = new HashSet<>();
-        for (Session sessionPayload : schedulePayload.getSessions()) {
-            Session session = new Session();
-            session.setDate(sessionPayload.getDate());
-            session.setSchedule(schedule);
-            sessions.add(session);
+        if (schedulePayload.getSessions() != null && !schedulePayload.getSessions().isEmpty()) {
+            for (Session sessionPayload : schedulePayload.getSessions()) {
+                Session session = new Session();
+                session.setDate(sessionPayload.getDate());
+                session.setSchedule(schedule);
+                sessions.add(session);
+            }
         }
         schedule.setSessions(sessions);
         return scheduleRepository.save(schedule);

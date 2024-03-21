@@ -46,7 +46,7 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /*Scan barcode considers as TAKING ATTENDANCE*/
+
     @PostMapping("/{scannerId}/scan")
     public ResponseEntity<?> scanBarcode(@PathVariable Long scannerId, @RequestBody ScanPayload scanPayload) {
         memberService.takeAttendance(scannerId, scanPayload);

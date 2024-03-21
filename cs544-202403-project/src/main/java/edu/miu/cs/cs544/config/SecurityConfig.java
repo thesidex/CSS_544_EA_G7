@@ -1,4 +1,4 @@
-//package edu.miu.cs.cs544.security;
+//package edu.miu.cs.cs544.config;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -9,6 +9,7 @@
 //@Configuration
 //@EnableWebSecurity
 //public class SecurityConfig {
+//
 //    @Bean
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        http.csrf(csrf -> csrf.disable());
