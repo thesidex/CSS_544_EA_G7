@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class RecordRequestPayload implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Member memberId;
+    private LocalDateTime scanTime;
 
 
 }

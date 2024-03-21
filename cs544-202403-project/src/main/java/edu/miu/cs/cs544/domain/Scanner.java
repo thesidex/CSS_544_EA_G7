@@ -24,9 +24,14 @@ public class Scanner implements Serializable {
 
     public Scanner() {}
 
-    public Scanner(Location location, Event event, List<Record> records) {
+    public Scanner(Location location, Event event) {
         this.location = location;
         this.event = event;
-        this.records = records;
+    }
+
+    public Scanner(Long id, Location location, Event event) {
+        this.id = id;
+        this.location = location;
+        this.event = event;
     }
 }

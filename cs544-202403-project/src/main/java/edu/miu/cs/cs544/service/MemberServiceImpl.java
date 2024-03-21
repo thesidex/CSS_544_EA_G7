@@ -1,9 +1,8 @@
     package edu.miu.cs.cs544.service;
 
 import edu.miu.common.exception.ResourceNotFoundException;
+import edu.miu.cs.cs544.domain.*;
 import edu.miu.cs.cs544.domain.Record;
-import edu.miu.cs.cs544.domain.Scanner;
-import edu.miu.cs.cs544.domain.Session;
 import edu.miu.cs.cs544.repository.*;
 import edu.miu.cs.cs544.service.contract.ScanPayload;
 import edu.miu.cs.cs544.service.mapper.RecordToRecordPayloadMapper;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.miu.common.service.BaseReadWriteServiceImpl;
-import edu.miu.cs.cs544.domain.Member;
 import edu.miu.cs.cs544.service.contract.MemberPayload;
 
 @Service
@@ -30,8 +28,6 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
     @Autowired
     private RegistrationRepository registrationRepository;
 
-    @Autowired
-    private RecordToRecordPayloadMapper recordMapper;
 
     @Override
     public void takeAttendance(Long scannerId, ScanPayload scanPayload) {
@@ -41,7 +37,14 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with id: " + scanPayload.getMemberBarcode()));
         Session session = sessionRepository.findById(scanPayload.getSessionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Session not found with id: " + scanPayload.getSessionId()));
+
+        // Check if the member is registered for the event
+        boolean isRegistered = registrationRepository.existsById(new EventRegistrationId(member.getId(), scanner.getEvent().getId()));
+
+        if (!isRegistered) {
+            throw new RuntimeException("Member is not registered for the event");
+        }
         Record record = new Record(member, scanner, session);
-        recordMapper.map(recordRepository.save(record));
+        recordRepository.save(record);
     }
 }

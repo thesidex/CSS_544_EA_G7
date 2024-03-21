@@ -17,9 +17,8 @@ public class RecordToRecordPayloadMapper extends BaseMapper<Record, RecordPayloa
 		RecordPayload target = new RecordPayload();
 		target.setId(source.getId());
 		target.setScanTime(source.getScanTime());
-		if (source.getScanner() != null) {
-			target.setScannerId(source.getId());
-		}
+		target.setMemberId(source.getMember().getId());
+		target.setScannerId(source.getScanner().getId());
 		return target;
 	}
 
