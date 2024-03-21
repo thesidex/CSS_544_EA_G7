@@ -35,6 +35,7 @@ public class Account implements Serializable {
 
     @ManyToOne
     private Scanner scanner;
+
     public Account() {}
 
    public Account(String description, String name, AccountType accountType, BigDecimal balance, Set<Account> Accounts) {
@@ -44,5 +45,9 @@ public class Account implements Serializable {
         this.balance = balance;
         this.defaultBalance=defaultBalance;
         this.members = members;
+    }
+
+    public void setMember(Member member) {
+        members.add(member);
     }
 }

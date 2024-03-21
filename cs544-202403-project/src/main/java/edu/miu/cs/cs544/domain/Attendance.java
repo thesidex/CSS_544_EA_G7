@@ -28,6 +28,9 @@ public class Attendance implements Serializable {
     @Embedded
     AuditData auditData = new AuditData();
 
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
+
     public Member getMember() {
         return member;
     }
@@ -48,5 +51,17 @@ public class Attendance implements Serializable {
         this.member = member;
         this.scanner = scanner;
         this.dateTime = dateTime;
+    }
+
+    public void setDateTime(LocalDateTime now) {
+        this.dateTime = now;
+    }
+
+    public void setAccount(AccountType account) {
+        this.accountType = account;
+    }
+
+    public AccountType getAccount() {
+        return accountType;
     }
 }

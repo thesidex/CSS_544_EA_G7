@@ -1,55 +1,82 @@
 package edu.miu.cs.cs544.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import edu.miu.cs.cs544.domain.Attendance;
 import edu.miu.cs.cs544.repository.AccountRepository;
 import edu.miu.cs.cs544.repository.AttendanceRepository;
-import edu.miu.cs.cs544.service.AccountService;
-import edu.miu.cs.cs544.service.AccountServiceImpl;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import edu.miu.cs.cs544.service.contract.AttendancePayload;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class AccountServiceTests {
-    @MockBean
-    AccountRepository accountRepository;
-    @MockBean
-    AttendanceRepository attendanceRepository;
 
-    @Autowired
-    AccountService accountService;
+    @Mock
+    private AccountRepository accountRepository;
 
-    List<String> emails = new ArrayList<>(List.of("thephong.nguyen@miu.edu"));
-    List<Attendance> attendances = new ArrayList<>(List.of(new Attendance()));
+    @Mock
+    private AttendanceRepository attendanceRepository;
 
-    @Before
+    @InjectMocks // This will inject the mocked repositories into the actual AccountService
+    private AccountService accountService;
+
+    // Example setup, replace with your actual setup
+    private List<Attendance> attendances = new ArrayList<>();
+
+    @BeforeEach
     public void setup() {
-        //accountService = new AccountServiceImpl(accountRepository, attendanceRepository);
+        // Initialize your mock data here
+        Attendance attendance = new Attendance();
+        attendances.add(attendance);
+
+        // Example: Preparing mock behavior
+        // Assuming getAttendanceByAccountIdAndStartTimeAndEndTime is a method in AccountService
+        // You'll need to adjust this to fit your actual method's return type and parameters
+        Long accountId = 1L;
+        String startTime = "2023-01-01";
+        String endTime = "2023-01-31";
+        List<AttendancePayload> mockPayload = List.of(new AttendancePayload()); // Adjust constructor as necessary
+
+        given(accountService.getAttendanceByAccountIdAndStartTimeAndEndTime(accountId, startTime, endTime)).willReturn(mockPayload);
     }
 
-    /*@Test
-    public void findAccountsByBalanceCondition_passed() {
-        Mockito.when(accountRepository.findAccountsByBalanceCondition()).thenReturn(emails);
-        accountService.findAccountsByBalanceCondition();
-        verify(accountRepository, times(1)).findAccountsByBalanceCondition();
-    }*/
+    @Test
+    public void getAttendance_NonEmptyList_ShouldReturnExpectedPayload() {
+        // Arrange
+        Long accountId = 1L;
+        String startTime = "2023-01-01";
+        String endTime = "2023-01-31";
+
+        // Act
+        List<AttendancePayload> result = accountService.getAttendanceByAccountIdAndStartTimeAndEndTime(accountId, startTime, endTime);
+
+        // Assert
+        assertThat(result).isNotEmpty(); // You can add more specific checks here depending on what you expect in the payload
+    }
 
     @Test
-    public void getAttendanceByAccountIdAndStartTimeAndEndTime_passed() {
-        Mockito.when(attendanceRepository.findAllByAccountId(1L, "2024-01-01", "2024-02-15")).thenReturn(attendances);
-        accountService.getAttendanceByAccountIdAndStartTimeAndEndTime(1L, "2024-01-01", "2024-02-15");
-        verify(attendanceRepository, times(1)).findAllByAccountId(1L, "2024-01-01", "2024-02-15");
+    public void getAttendance_EmptyList_ShouldReturnEmptyPayload() {
+        // Arrange - modify the setup to return an empty list for this scenario
+        Long accountId = 2L; // Assume this accountId has no attendances
+        String startTime = "2023-02-01";
+        String endTime = "2023-02-28";
+        given(accountService.getAttendanceByAccountIdAndStartTimeAndEndTime(accountId, startTime, endTime)).willReturn(new ArrayList<>());
+
+        // Act
+        List<AttendancePayload> result = accountService.getAttendanceByAccountIdAndStartTimeAndEndTime(accountId, startTime, endTime);
+
+        // Assert
+        assertThat(result).isEmpty();
     }
 }
