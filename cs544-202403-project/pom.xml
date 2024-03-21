@@ -102,6 +102,10 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.1.1</version> <!-- Replace with the latest version -->
 		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

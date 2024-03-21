@@ -9,6 +9,6 @@ public class ScannerPayload implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String locationId;
-	private Event eventId;
+	private Long locationId;
+	private Long eventId;
 }

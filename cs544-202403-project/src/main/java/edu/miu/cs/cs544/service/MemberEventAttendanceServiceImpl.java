@@ -24,16 +24,16 @@ public class MemberEventAttendanceServiceImpl implements MemberEventAttendanceSe
                 .map(SessionPayload::getId)
                 .collect(Collectors.toSet());
 
-        Set<Long> sessionIdsFromRecords = records.stream()
-                .map((Record::getSession_id))
-                .collect(Collectors.toSet());
-
-        int totalSessions = sessionIdsFromSessions.size();
-
-         sessionIdsFromSessions.removeAll(sessionIdsFromRecords);
-         List<Long> missingSessionIds = new ArrayList<>(sessionIdsFromSessions);
-         System.out.println("Total sessions: " + totalSessions);
-         System.out.println("Missing session IDs from records: " + missingSessionIds);
+//        Set<Long> sessionIdsFromRecords = records.stream()
+//                .map((Record::getSession_id))
+//                .collect(Collectors.toSet());
+//
+//        int totalSessions = sessionIdsFromSessions.size();
+//
+//         sessionIdsFromSessions.removeAll(sessionIdsFromRecords);
+//         List<Long> missingSessionIds = new ArrayList<>(sessionIdsFromSessions);
+//         System.out.println("Total sessions: " + totalSessions);
+//         System.out.println("Missing session IDs from records: " + missingSessionIds);
 
         return null;
 

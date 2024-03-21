@@ -37,13 +37,13 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
     @PutMapping("/{scannerId}/records/{recordId}")
     public ResponseEntity<?> deleteRecordById(@PathVariable Long scannerId, @PathVariable Long recordId, @RequestBody RecordRequestPayload recordRequestPayload) {
         RecordPayload updateRecord = recordService.updateRecordByScannerId(scannerId, recordId, recordRequestPayload);
-        return new ResponseEntity<>(updateRecord, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{scannerId}/records/{recordId}")
     public ResponseEntity<?> deleteRecordById(@PathVariable Long scannerId, @PathVariable Long recordId) {
         recordService.deleteRecordByScannerId(scannerId, recordId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /*Scan barcode considers as TAKING ATTENDANCE*/

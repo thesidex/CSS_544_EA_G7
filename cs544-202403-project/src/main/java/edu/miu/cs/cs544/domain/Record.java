@@ -7,6 +7,7 @@ import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -17,16 +18,20 @@ public class Record implements Serializable {
     private Long id;
 
     @Column(name = "scan_time")
+    @Setter
     private LocalDateTime scanTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "scanner_id")
     private Scanner scanner;
-    private long session_id;
+
+    @ManyToOne
+    @JoinColumn(name = "session_id")
+    private Session session;
     
     public Record() {
     }
@@ -35,12 +40,13 @@ public class Record implements Serializable {
         return id;
     }
 
-    public Record(Member member, Scanner scanner, Session session) {
+    public Record(Member member, Scanner scanner, Session session ) {
         this.scanTime = LocalDateTime.now();
         this.member = member;
         this.scanner = scanner;
-        //this.session = session;
+        this.session = session;
     }
+
     @Override
     public String toString() {
         return "Record{" +
