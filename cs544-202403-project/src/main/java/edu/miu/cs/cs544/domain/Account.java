@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import jakarta.persistence.*;
+import lombok.Data;
+
 @Entity
 @Data
 public class Account implements Serializable {
@@ -20,26 +23,25 @@ public class Account implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
+    
+    private BigDecimal balance;
+    private double defaultBalance = 100;
 
-    private double balance;
-
-    //One-Many accounts can have One-Many members
-    @ManyToMany(mappedBy = "accounts")
+    @ManyToMany
     private Set<Member> members;
 
 //    @ManyToOne
 //    private Scanner scanner;
-//    public Account() {}
 
-    public Account(String description, String name, AccountType accountType, double balance, Set<Account> Accounts) {
+    public Account() {}
+
+   public Account(String description, String name, AccountType accountType, BigDecimal balance, Set<Account> Accounts, Set<Member> members) {
         this.description = description;
         this.name = name;
         this.accountType = accountType;
-        this.balance = 100;
+        this.balance = balance;
+        this.defaultBalance = defaultBalance;
         this.members = members;
     }
 
-    public Account() {
-
-    }
 }

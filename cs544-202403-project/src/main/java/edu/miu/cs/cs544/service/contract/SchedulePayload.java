@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.service.contract;
 
+import edu.miu.cs.cs544.domain.ScheduleDayOfWeek;
 import edu.miu.cs.cs544.domain.Session;
 import lombok.Data;
 
@@ -16,5 +17,6 @@ public class SchedulePayload implements Serializable {
     private String weekDays;
     private String scheduleName;
     private Set<Session> sessions;
+    private Set<ScheduleDayOfWeek> scheduleDayOfWeeks;
 
 }

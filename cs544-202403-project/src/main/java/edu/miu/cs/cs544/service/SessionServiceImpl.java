@@ -2,9 +2,12 @@ package edu.miu.cs.cs544.service;
 
 import edu.miu.common.exception.ResourceNotFoundException;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
+import edu.miu.cs.cs544.domain.Event;
 import edu.miu.cs.cs544.domain.Schedule;
+import edu.miu.cs.cs544.domain.ScheduleDayOfWeek;
 import edu.miu.cs.cs544.domain.Session;
 //import edu.miu.cs.cs544.repository.EventRepository;
+import edu.miu.cs.cs544.repository.EventRepository;
 import edu.miu.cs.cs544.repository.ScheduleRepository;
 import edu.miu.cs.cs544.repository.SessionRepository;
 import edu.miu.cs.cs544.service.contract.SessionPayload;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,9 +31,6 @@ public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload,
     @Autowired
     private SessionToSessionPayloadMapper sessionMapper;
 
-//    @Autowired
-//    private EventRepository eventRepository;
-
     @Autowired
     private ScheduleRepository scheduleRepository;
 
@@ -41,17 +42,23 @@ public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload,
     }
 
     public SessionPayload addSessionToEvent(Long eventId, SessionRequestPayload sessionRequestPayload) {
-//        Event event = eventRepository.findById(eventId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + eventId));
         Schedule schedule = scheduleRepository.findById(sessionRequestPayload.getScheduleId())
                 .orElseThrow(() -> new ResourceNotFoundException("Schedule not found with id: " + sessionRequestPayload.getScheduleId()));
+        if (!schedule.getEvent().getId().equals(eventId)) {
+            throw new IllegalArgumentException("The specified schedule does not belong to the provided event.");
+        }
         Session session = new Session();
 
         session.setSchedule(schedule);
         session.setDate(sessionRequestPayload.getDate());
-        Set<DayOfWeek> weekDays = schedule.getWeekDays();
+        Set<ScheduleDayOfWeek> scheduleDayOfWeeks = schedule.getScheduleDayOfWeeks();
         DayOfWeek sessionDayOfWeek = sessionRequestPayload.getDate().getDayOfWeek();
         try {
+            Set<DayOfWeek> weekDays = new HashSet<>();
+            for (ScheduleDayOfWeek scheduleDayOfWeek : scheduleDayOfWeeks) {
+                weekDays.add(scheduleDayOfWeek.getDayOfWeek());
+            }
+
             if (weekDays.contains(sessionDayOfWeek)) {
                 session = sessionRepository.save(session);
                 return sessionMapper.map(session);
