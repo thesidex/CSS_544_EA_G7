@@ -24,10 +24,6 @@ public class MemberPayload implements Serializable {
 
 	private String email;
 
-	private List<Role> roles;
-
-	private List<Account> accounts;
-
-	private Set<Event> events;
+	private Long roleId;
 
 }
