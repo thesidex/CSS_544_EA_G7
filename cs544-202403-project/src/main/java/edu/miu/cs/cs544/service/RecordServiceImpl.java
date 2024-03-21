@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.service;
 
 import edu.miu.common.exception.ResourceNotFoundException;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
+import edu.miu.cs.cs544.domain.Member;
 import edu.miu.cs.cs544.domain.Record;
 import edu.miu.cs.cs544.domain.Scanner;
 import edu.miu.cs.cs544.repository.RecordRepository;
@@ -20,6 +21,9 @@ public class RecordServiceImpl extends BaseReadWriteServiceImpl<RecordPayload, R
 
     @Autowired
     private RecordRepository recordRepository;
+
+    @Autowired
+    private ScannerRepository scannerRepository;
 
     @Autowired
     private RecordToRecordPayloadMapper recordMapper;
@@ -41,7 +45,6 @@ public class RecordServiceImpl extends BaseReadWriteServiceImpl<RecordPayload, R
         recordRepository.delete(record);
     }
 
-    @Override
     public RecordPayload updateRecordByScannerId(Long scannerId, Long recordId, RecordRequestPayload recordRequestPayload) {
         Record record = recordRepository.findById(recordId)
                 .orElseThrow(() -> new ResourceNotFoundException("Record not found with id: " + recordId));
@@ -50,9 +53,8 @@ public class RecordServiceImpl extends BaseReadWriteServiceImpl<RecordPayload, R
             throw new ResourceNotFoundException("Record with id: " + recordId + " does not belong to Scanner with id: " + scannerId);
         }
 
-        record.setMember(recordRequestPayload.getMemberId());
+        record.setScanTime(recordRequestPayload.getScanTime());
         record = recordRepository.save(record);
-
         return recordMapper.map(record);
     }
 

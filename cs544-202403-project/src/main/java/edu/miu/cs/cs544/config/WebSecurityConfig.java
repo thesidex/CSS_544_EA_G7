@@ -10,24 +10,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
-public class WebSecurityConfig {
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(requests -> requests
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(Customizer.withDefaults());
-        return http.build();
-    }
+import javax.sql.DataSource;
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
-}
+//@Configuration
+//@EnableWebSecurity
+//@EnableMethodSecurity
+//public class WebSecurityConfig {
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+//            throws Exception {
+//        http.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(requests -> requests
+//                        .anyRequest().authenticated()
+//                )
+//                .httpBasic(Customizer.withDefaults());
+//        return http.build();
+//    }
+//
+//    @Bean
+//    public ModelMapper modelMapper() {
+//        return new ModelMapper();
+//    }
+//}
 

@@ -25,10 +25,10 @@ spring:
             enable: true
     protocol: smtp
     default-encoding: UTF-8
-  security:
-    user:
-      name: user
-      password: 123
+#  security:
+#    user:
+#      name: user
+#      password: 123
   application:
     name: cs544-202403-project
   datasource:
