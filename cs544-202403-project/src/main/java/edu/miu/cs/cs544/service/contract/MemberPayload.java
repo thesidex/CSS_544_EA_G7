@@ -15,6 +15,7 @@ import lombok.Data;
 public class MemberPayload implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private Long id;
 
 	private String firstName;
 
@@ -24,10 +25,6 @@ public class MemberPayload implements Serializable {
 
 	private String email;
 
-	private List<Role> roles;
-
-//	private List<Account> accounts;
-//
-//	private Set<Event> events;
+	private Long roleId;
 
 }

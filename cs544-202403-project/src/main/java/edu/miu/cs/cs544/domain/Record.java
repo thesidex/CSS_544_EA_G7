@@ -2,15 +2,12 @@ package edu.miu.cs.cs544.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -20,22 +17,41 @@ public class Record implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "scan_time")
+    @Setter
     private LocalDateTime scanTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "scanner_id")
     private Scanner scanner;
+
+    @ManyToOne
+    @JoinColumn(name = "session_id")
+    private Session session;
     
     public Record() {
     }
 
-    public Record(LocalDateTime scanTime, Member member, Scanner scanner) {
-        this.scanTime = scanTime;
+    public Long getId() {
+        return id;
+    }
+
+    public Record(Member member, Scanner scanner, Session session ) {
+        this.scanTime = LocalDateTime.now();
         this.member = member;
         this.scanner = scanner;
+        this.session = session;
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", scanTime=" + scanTime +
+                '}';
     }
 }

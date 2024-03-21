@@ -3,7 +3,9 @@ package edu.miu.cs.cs544.controller;
 
 import edu.miu.common.controller.BaseReadWriteController;
 import edu.miu.common.exception.ResourceNotFoundException;
+import edu.miu.cs.cs544.domain.Record;
 import edu.miu.cs.cs544.domain.Session;
+import edu.miu.cs.cs544.service.EventService;
 import edu.miu.cs.cs544.service.SessionService;
 import edu.miu.cs.cs544.service.contract.SessionPayload;
 import edu.miu.cs.cs544.service.contract.SessionRequestPayload;
@@ -16,9 +18,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/events")
-public class EventSpecificSessionController extends BaseReadWriteController<SessionPayload, Session, Long> {
+public class EventController extends BaseReadWriteController<SessionPayload, Session, Long> {
     @Autowired
     private SessionService sessionService;
+
+
 
     @GetMapping("/{eventId}/sessions")
     public ResponseEntity<?> getSessionsByEventId(@PathVariable Long eventId) {
@@ -45,4 +49,23 @@ public class EventSpecificSessionController extends BaseReadWriteController<Sess
         sessionService.deleteSession(eventId, sessionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+
+    private final EventService eventService;
+
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
+
+    @GetMapping("/{eventId}/Record")
+    public ResponseEntity<List<Record>> calculateRecord(@PathVariable Long eventId) {
+        List<Record> recordList = eventService.calculateRecord(eventId);
+        if (recordList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(recordList);
+        }
+    }
 }
+

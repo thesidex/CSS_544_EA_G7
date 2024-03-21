@@ -1,14 +1,11 @@
 package edu.miu.cs.cs544.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import jakarta.persistence.*;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -18,19 +15,26 @@ public class Scanner implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String location;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Location location;
 
-    @ManyToMany
-    private Set<Location> locations;
+    @OneToOne
+    private Event event;
+
 
     @OneToMany(mappedBy = "scanner")
-    private Set<Record> records;
+    private List<Record> records;
 
     public Scanner() {}
 
-    public Scanner(String location, Set<Location> locations, Set<Record> records) {
+    public Scanner(Location location, Event event) {
         this.location = location;
-        this.locations = locations;
-        this.records = records;
+        this.event = event;
+    }
+
+    public Scanner(Long id, Location location, Event event) {
+        this.id = id;
+        this.location = location;
+        this.event = event;
     }
 }
