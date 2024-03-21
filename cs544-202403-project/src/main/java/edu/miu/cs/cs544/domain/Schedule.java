@@ -22,7 +22,8 @@ public class Schedule implements Serializable {
     private Set<ScheduleDayOfWeek> scheduleDayOfWeeks;
     private String scheduleName;
 
-    @OneToMany(mappedBy = "schedule")
+    @OneToMany(mappedBy = "schedule",  cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
+    @JsonIgnore
     private Set<Session> sessions;
 
       @ManyToOne(fetch = FetchType.EAGER)
