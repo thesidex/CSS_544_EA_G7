@@ -30,15 +30,15 @@ public class Member implements Serializable {
     private String email;
 
     //One-Many members can have One-Many roles
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Role> roles;
 
-    //One-Many members can have One-Many accounts
-    @ManyToMany
+    //One member can have One-Many accounts
+    @ManyToMany (cascade = CascadeType.REMOVE)
     private List<Account> accounts;
 
     //One-Many members can have One-Many events
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private Set<Event> events;
 
     public Member() {}

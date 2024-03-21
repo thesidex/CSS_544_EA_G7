@@ -50,8 +50,14 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with id: " + scanPayload.getMemberBarcode()));
         Session session = sessionRepository.findById(scanPayload.getSessionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Session not found with id: " + scanPayload.getSessionId()));
+
+        boolean isRegistered = registrationRepository.existsById(new EventRegistrationId(member.getId(), scanner.getEvent().getId()));
+
+        if (!isRegistered) {
+            throw new RuntimeException("Member is not registered for the event");
+        }
         Record record = new Record(member, scanner, session);
-        recordMapper.map(recordRepository.save(record));
+        recordRepository.save(record);
     }
 
 
@@ -92,18 +98,7 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
         member.getRoles().stream().filter(role -> role.getId().equals(requestRolePayload.getOldRoleId())).findFirst()
                 .stream().peek(role -> role.setId(requestRolePayload.getNewRoleId()));
         memberRepository.save(member);
-        //return ;
 
-//            Optional<Member> memberOptional =  this.memberRepository.findById(memberId);
-//            if(memberOptional.isPresent()){
-//                Member member = memberOptional.get();
-//                Optional<Role> roleOptional = member.getRoles().stream().filter(role -> role.getId().equals(inputRole.getId()))
-//                        .findFirst();
-//                roleOptional.ifPresent(role -> role.(inputRole.getRole()));
-//                this.memberRepository.save(member);
-//                return inputRole;
-//            }
-//            return null;
         }
 
         @Override
@@ -120,21 +115,16 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
         }
 
         public void deleteRoleForMember(Long memberId, Long roleId) {
-            // Find the member by ID or throw an exception if not found.
             Member member = memberRepository.findById(memberId)
                     .orElseThrow(() -> new ResourceNotFoundException("Member is not found"));
 
-            // Find the role within the member's roles by comparing the role's ID.
-            // We assume Role::getId returns a Long. Replace this method call if your getter is named differently.
             Role roleToRemove = member.getRoles().stream()
                     .filter(role -> role.getId().equals(roleId))
                     .findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("Role is not found for this member"));
 
-            // Remove the role from the member's set of roles.
             member.getRoles().remove(roleToRemove);
 
-            // Save the updated member entity.
             memberRepository.save(member);
         }
 

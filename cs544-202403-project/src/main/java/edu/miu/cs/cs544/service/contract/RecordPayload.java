@@ -1,6 +1,7 @@
 package edu.miu.cs.cs544.service.contract;
 
 import edu.miu.cs.cs544.domain.Member;
+import edu.miu.cs.cs544.domain.Scanner;
 import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,6 +13,6 @@ public class RecordPayload implements Serializable {
 	
 	private Long id;
 	private LocalDateTime scanTime;
-	private Member memberId;
+	private Long memberId;
 	private Long scannerId;
 }

@@ -13,8 +13,8 @@ public class Registration implements Serializable {
     private EventRegistrationId id;
 
     @ManyToOne
-            @MapsId("memberId")
-            @JoinColumn(name = "member_id")
+    @MapsId("memberId")
+    @JoinColumn(name = "member_id")
     Member member;
 
     @ManyToOne
