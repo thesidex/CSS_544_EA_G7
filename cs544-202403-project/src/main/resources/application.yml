@@ -6,7 +6,7 @@ common:
   mvc:
     enabled: false
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:8000}
   ssl:
     enabled: false
   servlet:
@@ -25,14 +25,20 @@ spring:
             enable: true
     protocol: smtp
     default-encoding: UTF-8
-#  security:
+  security:
 #    user:
 #      name: user
 #      password: 123
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
   application:
     name: cs544-202403-project
   datasource:
-    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
     driverClassName: com.mysql.cj.jdbc.Driver
