@@ -1,7 +1,9 @@
 package edu.miu.cs.cs544.repository;
 
 import edu.miu.common.repository.BaseRepository;
+import edu.miu.cs.cs544.domain.Member;
 import edu.miu.cs.cs544.domain.Record;
+import edu.miu.cs.cs544.domain.Session;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,4 +20,6 @@ public interface RecordRepository extends BaseRepository<Record, Long> {
     List<Record> getMemberEventAttendance(@Param("memberId") Long memberId, @Param("eventId") Long eventId);
     
     List<Record> findByScannerId(Long scannerId);
+
+    boolean existsByMemberAndSession (Member member, Session session);
 }

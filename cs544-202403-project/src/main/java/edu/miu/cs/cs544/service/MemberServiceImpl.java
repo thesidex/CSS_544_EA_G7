@@ -6,6 +6,7 @@ import edu.miu.cs.cs544.domain.Record;
 import edu.miu.cs.cs544.repository.*;
 import edu.miu.cs.cs544.service.contract.RequestRolePayload;
 import edu.miu.cs.cs544.service.contract.ScanPayload;
+
 import edu.miu.cs.cs544.service.mapper.MemberToMemberPayloadMapper;
 import edu.miu.cs.cs544.service.mapper.RecordToRecordPayloadMapper;
 import jakarta.transaction.Transactional;
@@ -34,6 +35,16 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
     @Autowired
     private RegistrationRepository registrationRepository;
 
+
+    public MemberServiceImpl(ScannerRepository scannerRepository, SessionRepository sessionRepository, MemberRepository memberRepository, RecordRepository recordRepository, RegistrationRepository registrationRepository) {
+        this.scannerRepository = scannerRepository;
+        this.sessionRepository = sessionRepository;
+        this.memberRepository = memberRepository;
+        this.recordRepository = recordRepository;
+        this.registrationRepository = registrationRepository;
+    }
+
+    public MemberServiceImpl(){};
     @Autowired
     private RoleRepository roleRepository;
 
@@ -56,6 +67,14 @@ public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, M
         if (!isRegistered) {
             throw new RuntimeException("Member is not registered for the event");
         }
+
+        // Check if the member has already taken attendance for this session
+        boolean attendanceTaken = recordRepository.existsByMemberAndSession(member, session);
+        if (attendanceTaken) {
+            throw new RuntimeException("Attendance already taken for this member in this session");
+        }
+
+        // If not already taken, record attendance
         Record record = new Record(member, scanner, session);
         recordRepository.save(record);
     }

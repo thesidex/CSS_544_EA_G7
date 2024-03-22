@@ -23,7 +23,7 @@ public class Member implements Serializable {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "barcode")
+	@Column(name = "barcode", nullable = false, unique = true)
 	private String barcode;
 
     @Column(name = "email")

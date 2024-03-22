@@ -31,6 +31,15 @@ public class RegistrationServiceImpl extends BaseReadWriteServiceImpl<Registrati
     @Autowired
     EventRepository eventRepository;
 
+    public RegistrationServiceImpl(RegistrationRepository registrationRepository, MemberRepository memberRepository, EventRepository eventRepository) {
+        this.registrationRepository = registrationRepository;
+        this.memberRepository = memberRepository;
+        this.eventRepository = eventRepository;
+    }
+
+    public RegistrationServiceImpl(){};
+
+
 
     @Override
     public void registerEvent(Long memberId, Long eventId) {

@@ -10,6 +10,7 @@ import edu.miu.cs.cs544.repository.ScannerRepository;
 import edu.miu.cs.cs544.service.contract.RecordPayload;
 import edu.miu.cs.cs544.service.contract.RecordRequestPayload;
 import edu.miu.cs.cs544.service.mapper.RecordToRecordPayloadMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +18,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class RecordServiceImpl extends BaseReadWriteServiceImpl<RecordPayload, Record, Long> implements RecordService {
 
     @Autowired
     private RecordRepository recordRepository;
 
     @Autowired
-    private ScannerRepository scannerRepository;
-
-    @Autowired
     private RecordToRecordPayloadMapper recordMapper;
+
+    public RecordServiceImpl(){};
+
+    public RecordServiceImpl(RecordRepository recordRepository, RecordToRecordPayloadMapper recordMapper) {
+        this.recordRepository = recordRepository;
+        this.recordMapper = recordMapper;
+    }
 
     public List<RecordPayload> getRecordsByScannerId(Long scannerId){
         List<Record> records = recordRepository.findByScannerId(scannerId);
+//        System.out.println("recordsSRVIMPL::"+records.get(0));
+//        System.out.println("test::::"+recordMapper.customMapping(records.get(0)));
         return records.stream()
                 .map(record -> recordMapper.customMapping(record))
                 .collect(Collectors.toList());
@@ -52,7 +60,6 @@ public class RecordServiceImpl extends BaseReadWriteServiceImpl<RecordPayload, R
         if (!record.getScanner().getId().equals(scannerId)) {
             throw new ResourceNotFoundException("Record with id: " + recordId + " does not belong to Scanner with id: " + scannerId);
         }
-
         record.setScanTime(recordRequestPayload.getScanTime());
         record = recordRepository.save(record);
         return recordMapper.map(record);

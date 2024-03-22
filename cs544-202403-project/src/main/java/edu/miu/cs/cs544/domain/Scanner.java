@@ -12,10 +12,10 @@ public class Scanner implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Location location;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Event event;
 
 
