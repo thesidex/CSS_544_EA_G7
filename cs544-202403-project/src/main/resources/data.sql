@@ -23,9 +23,18 @@ VALUES ('BC7824', 'GallonDell@gmail.com', 'Gallon', 'Dell');
 
 SELECT * FROM Member;
 
-
-
 /*-------*/
+INSERT INTO Member_Role (Member_member_id, roles_role_Id)
+VALUES (1, 1);
+
+INSERT INTO Member_Role (Member_member_id, roles_role_Id)
+VALUES (2, 2);
+
+INSERT INTO Member_Role (Member_member_id, roles_role_Id)
+VALUES (3, 3);
+
+SELECT * FROM Member_Role;
+
 
 INSERT INTO Event (endDateTime, id, startDateTime, description, name)
 VALUES ('2023-04-01', 1, '2023-02-01', 'Description', 'Library');

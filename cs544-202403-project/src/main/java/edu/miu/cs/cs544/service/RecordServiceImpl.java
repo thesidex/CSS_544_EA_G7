@@ -27,8 +27,17 @@ public class RecordServiceImpl extends BaseReadWriteServiceImpl<RecordPayload, R
     @Autowired
     private RecordToRecordPayloadMapper recordMapper;
 
+    public RecordServiceImpl(){};
+
+    public RecordServiceImpl(RecordRepository recordRepository, RecordToRecordPayloadMapper recordMapper) {
+        this.recordRepository = recordRepository;
+        this.recordMapper = recordMapper;
+    }
+
     public List<RecordPayload> getRecordsByScannerId(Long scannerId){
         List<Record> records = recordRepository.findByScannerId(scannerId);
+//        System.out.println("recordsSRVIMPL::"+records.get(0));
+//        System.out.println("test::::"+recordMapper.customMapping(records.get(0)));
         return records.stream()
                 .map(record -> recordMapper.customMapping(record))
                 .collect(Collectors.toList());

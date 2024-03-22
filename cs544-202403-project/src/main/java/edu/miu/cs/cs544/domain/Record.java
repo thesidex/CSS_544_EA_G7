@@ -49,6 +49,7 @@ public class Record implements Serializable {
     public String toString() {
         return "Record{" +
                 "id=" + id +
+                ",scannerId="+scanner.getId()+
                 ", scanTime=" + scanTime +
                 '}';
     }

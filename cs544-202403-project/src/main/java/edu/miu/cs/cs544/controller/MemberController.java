@@ -16,6 +16,12 @@ import edu.miu.cs.cs544.service.contract.MemberPayload;
 @RequestMapping("/members")
 public class MemberController extends BaseReadWriteController<MemberPayload, Member, Long> {
 
+    public MemberController() {}
+
+    public MemberController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
+    }
+
     @Autowired
     private RegistrationService registrationService;
 

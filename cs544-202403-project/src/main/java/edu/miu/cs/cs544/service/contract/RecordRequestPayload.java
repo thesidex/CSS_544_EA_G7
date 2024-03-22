@@ -8,8 +8,10 @@ import java.time.LocalDateTime;
 @Data
 public class RecordRequestPayload implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    private Long id;
+    private Long scannerId;
     private LocalDateTime scanTime;
+
 
 
 }

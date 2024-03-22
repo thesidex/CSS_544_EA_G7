@@ -25,6 +25,14 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
     @Autowired
     private MemberService memberService;
 
+    public ScannerController() {
+    }
+
+    public ScannerController(RecordService recordService, MemberService memberService) {
+        this.recordService = recordService;
+        this.memberService = memberService;
+    }
+
     @GetMapping("/{scannerId}/records")
     public ResponseEntity<?> getRecordsByScannerId(@PathVariable Long scannerId) {
         List<RecordPayload> records = recordService.getRecordsByScannerId(scannerId);

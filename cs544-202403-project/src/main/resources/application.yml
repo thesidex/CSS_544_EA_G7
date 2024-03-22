@@ -6,7 +6,7 @@ common:
   mvc:
     enabled: false
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:8000}
   ssl:
     enabled: false
   servlet:
@@ -25,10 +25,16 @@ spring:
             enable: true
     protocol: smtp
     default-encoding: UTF-8
-#  security:
+  security:
 #    user:
 #      name: user
 #      password: 123
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 675320705336-broqoldck3mpkuc47pns1gjru0rbnosm.apps.googleusercontent.com
+            client-secret: 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
   application:
     name: cs544-202403-project
   datasource:
